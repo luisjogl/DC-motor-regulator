@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "analoginputmock.cpp"
+#include "maquinaestados.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QTimer *plotTimer = new QTimer(this);
     connect(plotTimer, SIGNAL(timeout()), this, SLOT(updatePlot()));
     plotTimer->start(50);
+
 }
 
 MainWindow::~MainWindow()
@@ -25,12 +27,16 @@ MainWindow::~MainWindow()
 void MainWindow::setupRealTimePlot(){
     ui->customPlot->addGraph();
     ui->customPlot->graph(0)->setPen(QPen(Qt::blue));
+    ui->customPlot->addGraph();
+    ui->customPlot->graph(1)->setPen(QPen(Qt::red));
+
     ui->customPlot->xAxis->setLabel("Tiempo (s)");
     ui->customPlot->axisRect()->setupFullAxesBox();
     ui->customPlot->yAxis->setLabel("Velocidad (rad/s)");
     ui->customPlot->legend->setVisible(true);
     ui->customPlot->legend->setFont(QFont("Helvetica",9));
     ui->customPlot->graph(0)->setName("Valor actual");
+    ui->customPlot->graph(1)->setName("Valor referencia");
 }
 
 void MainWindow::updatePlot(){
@@ -38,29 +44,26 @@ void MainWindow::updatePlot(){
     static QTime time(QTime::currentTime());
     double now = time.elapsed()/1000.0;
 
-    double y1 = getAnalogValue();
+    double valorActual = getAnalogValue();
+
+    double valorReferencia = refVel;
 
     static float minAxeY=0;
     static float maxAxeY=0;
 
-    //if (ref1> maxAxeY) maxAxeY= ref1;
-    if (y1> maxAxeY) maxAxeY= y1;
+    if (valorReferencia > maxAxeY) maxAxeY= valorReferencia;
+    if (valorActual > maxAxeY) maxAxeY= valorActual;
 
-    //if (ref1 <  minAxeY) minAxeY= ref1;
-    if (y1 < minAxeY) minAxeY= y1;
+    if (valorReferencia <  minAxeY) minAxeY= valorReferencia;
+    if (valorActual < minAxeY) minAxeY= valorActual;
 
-    // añadir nuevo par de datos al gráfico:
+    ui->customPlot->graph(0)->addData(now, valorActual);
+    ui->customPlot->graph(1)->addData(now, valorReferencia);
 
-    ui->customPlot->graph(0)->addData(now, y1);  // dibujar ref
-
-
-        // Sin Reescalado de los ejes, la curva se comprime porque se
-        // aumenta la ventana temporal
-        // Si se quitan los comentarios la ventana temporal cambia sus límtes
-        // pero no su tamaño.La curva se desplaza, aparece por la dcha y se va por la izq.
-    //
     ui->customPlot->graph(0)->rescaleAxes(true);
+    ui->customPlot->graph(1)->rescaleAxes(true);
 
+    ui->customPlot->graph(0)->rescaleKeyAxis(true);
     ui->customPlot->graph(0)->rescaleKeyAxis(true);
 
     ui->customPlot->xAxis->setRange(now,10, Qt::AlignRight);
@@ -70,3 +73,8 @@ void MainWindow::updatePlot(){
 }
 
 
+
+void MainWindow::on_botonModificarRefs_clicked()
+{
+    refVel = ui->spinBoxRefVel->value();
+}

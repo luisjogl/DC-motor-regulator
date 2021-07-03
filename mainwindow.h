@@ -17,12 +17,15 @@ public:
 
     void setupRealTimePlot();
 
-private:
+//private:
     Ui::MainWindow *ui;
+    double refVel = 0;
 
 public slots:
     void updatePlot();
 
+private slots:
+    void on_botonModificarRefs_clicked();
 };
 
 #endif // MAINWINDOW_H

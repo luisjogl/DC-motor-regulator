@@ -27,11 +27,15 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     qcustomplot.cpp \
-    analoginputmock.cpp
+    analoginputmock.cpp \
+    maquinaestados.cpp \
+    pid.cpp
 
 HEADERS += \
         mainwindow.h \
-    qcustomplot.h
+    qcustomplot.h \
+    maquinaestados.h \
+    pid.h
 
 FORMS += \
         mainwindow.ui
