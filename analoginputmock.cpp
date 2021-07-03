@@ -1,6 +1,5 @@
 #include <iostream>
-
-static double value;
+#include "analoginputmock.h"
 
 void analogInputMockSetNewValue(double angle, double offset, double amplitude){
     value = amplitude * sin(angle) + offset;

@@ -1,6 +1,7 @@
 #include "pid.h"
+#include <iostream>
 
-PID::PID(double kp = 0, double ki = 0, double kd = 0, double dt = 1) {
+PID::PID(double kp = 1, double ki = 0, double kd = 0, double dt = 1) {
     _KP = kp;
     _KI = ki;
     _KD = kd;
@@ -20,6 +21,8 @@ double PID::calcular(double valorObjetivo, double valorActual){
 
     double accionControl = resultadoP + resultadoI + resultadoD;
     _errorPrevio = _error;
+
+    //std::cout << accionControl << "\n";
     return accionControl;
 }
 

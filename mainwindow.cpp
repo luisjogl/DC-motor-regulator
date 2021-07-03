@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "analoginputmock.cpp"
-#include "maquinaestados.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,8 +14,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QTimer *plotTimer = new QTimer(this);
     connect(plotTimer, SIGNAL(timeout()), this, SLOT(updatePlot()));
-    plotTimer->start(50);
+    plotTimer->start(20);
 
+    connect(ui->botonActualizaParams, SIGNAL(clicked()), this, SLOT(actualizaControllerParams()));
+
+    ui->doubleSpinBoxP->setValue(0.5);
+    ui->doubleSpinBoxI->setValue(0.1);
+    ui->doubleSpinBoxD->setValue(0.0);
+    ui->doubleSpinBoxT->setValue(0.5);
+
+    MainWindow::actualizaControllerParams();
 }
 
 MainWindow::~MainWindow()
@@ -32,7 +39,7 @@ void MainWindow::setupRealTimePlot(){
 
     ui->customPlot->xAxis->setLabel("Tiempo (s)");
     ui->customPlot->axisRect()->setupFullAxesBox();
-    ui->customPlot->yAxis->setLabel("Velocidad (rad/s)");
+    ui->customPlot->yAxis->setLabel("Velocidad (RPM)");
     ui->customPlot->legend->setVisible(true);
     ui->customPlot->legend->setFont(QFont("Helvetica",9));
     ui->customPlot->graph(0)->setName("Valor actual");
@@ -45,8 +52,6 @@ void MainWindow::updatePlot(){
     double now = time.elapsed()/1000.0;
 
     double valorActual = getAnalogValue();
-
-    double valorReferencia = refVel;
 
     static float minAxeY=0;
     static float maxAxeY=0;
@@ -72,9 +77,16 @@ void MainWindow::updatePlot(){
     ui->customPlot->replot();
 }
 
-
-
 void MainWindow::on_botonModificarRefs_clicked()
 {
     refVel = ui->spinBoxRefVel->value();
+    refPos = ui->spinBoxRefPos->value();
+    emit hayCambioReferencia();
+}
+
+void MainWindow::actualizaControllerParams(){
+    P = ui->doubleSpinBoxP->value();
+    I = ui->doubleSpinBoxI->value();
+    D = ui->doubleSpinBoxD->value();
+    T = ui->doubleSpinBoxT->value();
 }

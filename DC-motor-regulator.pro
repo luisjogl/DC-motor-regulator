@@ -35,7 +35,8 @@ HEADERS += \
         mainwindow.h \
     qcustomplot.h \
     maquinaestados.h \
-    pid.h
+    pid.h \
+    analoginputmock.h
 
 FORMS += \
         mainwindow.ui
