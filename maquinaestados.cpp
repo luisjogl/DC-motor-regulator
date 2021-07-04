@@ -3,10 +3,13 @@
 #include "ui_mainwindow.h"
 #include "pid.h"
 #include "analoginputmock.h"
+//#include "boton.h"
+//#include "readBotones.cpp"
 
-MaquinaEstados::MaquinaEstados(MainWindow *gui, QObject *parent) : QObject(parent)
+MaquinaEstados::MaquinaEstados(MainWindow *gui, Boton *pulsEmer, QObject *parent) : QObject(parent)
 {
     w = gui;
+    pEmer = pulsEmer;
     machine = new QStateMachine();
     enMarcha = new QState(machine);
     paradaEmergencia = new QState(machine);
@@ -19,6 +22,7 @@ MaquinaEstados::MaquinaEstados(MainWindow *gui, QObject *parent) : QObject(paren
     paradaEmergencia->addTransition(w->ui->botonRearme, SIGNAL(clicked()), enMarcha);
     regulandoPosicion->addTransition(w->ui->botonCambiaModo, SIGNAL(clicked()), regulandoVelocidad);
     regulandoVelocidad->addTransition(w->ui->botonCambiaModo, SIGNAL(clicked()), regulandoPosicion);
+    enMarcha->addTransition(pEmer, SIGNAL(botonPulsado()), paradaEmergencia);
     //añadir transicion al pulsar pulsador de parada de emergencia para cambiar a estado de emergencia estando en marcha
     //añadir transicion al pulsar pulsador de rearme para cambiar a en marcha estando en emergencia
 
@@ -30,6 +34,8 @@ MaquinaEstados::MaquinaEstados(MainWindow *gui, QObject *parent) : QObject(paren
     QTimer *regulationTimer = new QTimer(this);
     connect(regulationTimer, SIGNAL(timeout()), this, SLOT(calculaAccionControl()));
     regulationTimer->start(100);
+
+    enMarcha->addTransition(w->pulsadorEmergencia, SIGNAL(botonPulsado()), paradaEmergencia);
 
     machine->setInitialState(enMarcha);
     enMarcha->setInitialState(ultimoEstado);
@@ -89,3 +95,4 @@ void MaquinaEstados::cambiaRefPlot(){
         w->valorReferencia = w->refPos;
     }
 }
+

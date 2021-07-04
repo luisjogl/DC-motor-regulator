@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "analoginputmock.cpp"
+#include "wiringPi.h"
+//#include "readBotones.cpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +13,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     pthread_t analogInputThread;
     pthread_create(&analogInputThread, NULL, readAnalogInputMock, NULL);
+
+    pulsadorEmergencia = new Boton(0); //
+
+//    pthread_t hiloBotones;
+//    pthread_create(&hiloBotones, NULL, readBotones, pulsadorEmergencia);
+
+
+
 
     QTimer *plotTimer = new QTimer(this);
     connect(plotTimer, SIGNAL(timeout()), this, SLOT(updatePlot()));

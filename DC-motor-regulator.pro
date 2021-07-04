@@ -29,14 +29,19 @@ SOURCES += \
     qcustomplot.cpp \
     analoginputmock.cpp \
     maquinaestados.cpp \
-    pid.cpp
+    pid.cpp \
+    #readBotones.cpp \
+    boton.cpp \
 
 HEADERS += \
         mainwindow.h \
     qcustomplot.h \
     maquinaestados.h \
     pid.h \
-    analoginputmock.h
+    analoginputmock.h \
+    boton.h
 
 FORMS += \
         mainwindow.ui
+
+LIBS += -L/usr/local/lib -lwiringPi

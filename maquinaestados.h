@@ -13,7 +13,7 @@ class MaquinaEstados : public QObject
     Q_OBJECT
 
 public:
-    explicit MaquinaEstados(MainWindow *gui, QObject *parent = nullptr);
+    explicit MaquinaEstados(MainWindow *gui, Boton *pulsEmer, QObject *parent = nullptr);
 
 private:
     QStateMachine *machine;
@@ -24,6 +24,7 @@ private:
     QState *paradaEmergencia;
 
     MainWindow *w;
+    Boton *pEmer;
 
     PID *reguladorPosicion;
     PID *reguladorVelocidad;

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "boton.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,9 +18,11 @@ public:
     ~MainWindow();
 
     void setupRealTimePlot();
+    void myInterrupt();
 
 //private:
     Ui::MainWindow *ui;
+    Boton *pulsadorEmergencia;
     double refVel = 0;
     double refPos = 0;
     double valorReferencia = 0;
