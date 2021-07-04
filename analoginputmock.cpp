@@ -1,5 +1,6 @@
 #include <iostream>
 #include "analoginputmock.h"
+#include <cmath>
 
 void analogInputMockSetNewValue(double angle, double offset, double amplitude){
     value = amplitude * sin(angle) + offset;
@@ -16,7 +17,7 @@ void *readAnalogInputMock(void *){
     double amplitude = 10;
     while(1){
         analogInputMockSetNewValue(angle, offset, amplitude);
-        angle += 5;
+        angle += 10;
         //std::cout << getAnalogValue() << "\n" ;
     }
 }

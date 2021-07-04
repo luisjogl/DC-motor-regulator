@@ -13,7 +13,7 @@ class MaquinaEstados : public QObject
     Q_OBJECT
 
 public:
-    explicit MaquinaEstados(MainWindow *gui, Boton *pulsEmer, QObject *parent = nullptr);
+    explicit MaquinaEstados(MainWindow *gui, Boton *pulsEmer, Boton *pulsRearme, QObject *parent = nullptr);
 
 private:
     QStateMachine *machine;
@@ -25,9 +25,15 @@ private:
 
     MainWindow *w;
     Boton *pEmer;
+    Boton *pRearme;
 
     PID *reguladorPosicion;
     PID *reguladorVelocidad;
+
+    QTimer *regulationTimer;
+    QTimer *blinkingTimer;
+
+    int estadoLED = 0;
 
     double valorReferencia;
     double accionControl;
@@ -41,6 +47,9 @@ public slots:
     void calculaAccionControl();
     //generaPWM()
     void cambiaRefPlot();
+    void parpadeaLED();
+    void finalizaEmergencia();
+    void entraEmergencia();
 };
 
 #endif // MAQUINAESTADOS_H

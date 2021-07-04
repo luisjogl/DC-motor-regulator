@@ -32,6 +32,7 @@ SOURCES += \
     pid.cpp \
     #readBotones.cpp \
     boton.cpp \
+    #enciendeled.cpp
 
 HEADERS += \
         mainwindow.h \

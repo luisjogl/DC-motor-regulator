@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1448</width>
-    <height>715</height>
+    <width>1439</width>
+    <height>742</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QCustomPlot" name="customPlot" native="true">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>470</x>
       <y>30</y>
-      <width>1061</width>
-      <height>421</height>
+      <width>951</width>
+      <height>441</height>
      </rect>
     </property>
    </widget>
@@ -480,7 +480,7 @@
      <rect>
       <x>890</x>
       <y>510</y>
-      <width>302</width>
+      <width>322</width>
       <height>51</height>
      </rect>
     </property>
@@ -933,9 +933,9 @@
    <widget class="QPushButton" name="botonParadaEmergencia">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>400</x>
       <y>500</y>
-      <width>211</width>
+      <width>241</width>
       <height>141</height>
      </rect>
     </property>
@@ -1363,7 +1363,7 @@
      <rect>
       <x>890</x>
       <y>580</y>
-      <width>304</width>
+      <width>322</width>
       <height>51</height>
      </rect>
     </property>
@@ -1422,9 +1422,9 @@
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>30</y>
-      <width>311</width>
+      <width>411</width>
       <height>431</height>
      </rect>
     </property>
@@ -1437,7 +1437,7 @@
     <widget class="QPushButton" name="botonActualizaParams">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>90</x>
        <y>340</y>
        <width>241</width>
        <height>71</height>
@@ -1472,7 +1472,7 @@
       <rect>
        <x>20</x>
        <y>70</y>
-       <width>268</width>
+       <width>369</width>
        <height>251</height>
       </rect>
      </property>
@@ -1542,8 +1542,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1448</width>
-     <height>22</height>
+     <width>1439</width>
+     <height>35</height>
     </rect>
    </property>
   </widget>
