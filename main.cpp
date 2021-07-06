@@ -11,6 +11,7 @@
 Boton *pulsadorEmergencia = new Boton(BUTTON_PIN_1);
 Boton *pulsadorRearme = new Boton(BUTTON_PIN_2);
 
+
 void myInterruptEmergencia(void) {
     emit pulsadorEmergencia->botonPulsado();
 }
@@ -34,6 +35,7 @@ void *readBotones(void *) {
     }
 }
 
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -41,7 +43,7 @@ int main(int argc, char *argv[])
     pthread_t hiloBotones;
     pthread_create(&hiloBotones, nullptr, readBotones, nullptr);
 
-    MainWindow w;
+    MainWindow w; //(currVel,currPos)
     MaquinaEstados sm(&w, pulsadorEmergencia, pulsadorRearme);
 
     w.show();

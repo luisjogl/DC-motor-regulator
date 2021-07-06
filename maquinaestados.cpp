@@ -1,9 +1,7 @@
 #include "maquinaestados.h"
 #include <QDebug>
 #include "ui_mainwindow.h"
-#include "pid.h"
-#include "analoginputmock.h"
-#include "wiringPi.h"
+//#include "analoginputmock.h"
 
 #define LED_PIN 2
 
@@ -66,6 +64,7 @@ void MaquinaEstados::enRegulandoPosicion(){
         reguladorPosicion = new PID(w->P,w->I,w->D,w->T);
         w->ui->labelEstado->setText("REGULANDO POSICIÓN");
         w->valorReferencia = w->refPos;
+        w->valorActual = w->valorPosicion;
         w->ui->customPlot->yAxis->setLabel("Posición (º)");
     }
 }
@@ -75,16 +74,17 @@ void MaquinaEstados::enRegulandoVelocidad(){
         w->ui->labelEstado->setText("REGULANDO VELOCIDAD");
         reguladorVelocidad = new PID(w->P,w->I,w->D,w->T);
         w->valorReferencia = w->refVel;
+        w->valorActual = w->valorVelocidad;
         w->ui->customPlot->yAxis->setLabel("Velocidad (RPM)");
     }
 }
 
 void MaquinaEstados::calculaAccionControl(){
     if (regulandoPosicion->active() == true){
-        accionControl = reguladorPosicion->calcular(w->valorReferencia, getAnalogValue());
+        accionControl = reguladorPosicion->calcular(w->valorReferencia, getAnalogValue(MODO_POSICION));
     }
     else if (regulandoVelocidad->active() == true) {
-        accionControl = reguladorVelocidad->calcular(w->valorReferencia, getAnalogValue());
+        accionControl = reguladorVelocidad->calcular(w->valorReferencia, getAnalogValue(MODO_VELOCIDAD));
     }
 }
 

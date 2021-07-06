@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "analoginputmock.cpp"
-#include "wiringPi.h"
-//#include "readBotones.cpp"
+//#include "analoginputmock.cpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,14 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     MainWindow::setupRealTimePlot();
 
     pthread_t analogInputThread;
-    pthread_create(&analogInputThread, NULL, readAnalogInputMock, NULL);
+    pthread_create(&analogInputThread, NULL, readEntradasMaqueta, NULL);
+
 
     pulsadorEmergencia = new Boton(0); //
-
-//    pthread_t hiloBotones;
-//    pthread_create(&hiloBotones, NULL, readBotones, pulsadorEmergencia);
-
-
 
 
     QTimer *plotTimer = new QTimer(this);
@@ -61,7 +55,8 @@ void MainWindow::updatePlot(){
     static QTime time(QTime::currentTime());
     double now = time.elapsed()/1000.0;
 
-    double valorActual = getAnalogValue();
+    valorPosicion= getAnalogValue(MODO_POSICION);
+    valorVelocidad= getAnalogValue(MODO_VELOCIDAD);
 
     static float minAxeY=0;
     static float maxAxeY=0;

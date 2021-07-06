@@ -32,6 +32,7 @@ SOURCES += \
     pid.cpp \
     #readBotones.cpp \
     boton.cpp \
+    analoginput.cpp
     #enciendeled.cpp
 
 HEADERS += \
@@ -40,7 +41,8 @@ HEADERS += \
     maquinaestados.h \
     pid.h \
     analoginputmock.h \
-    boton.h
+    boton.h \
+    analoginput.h
 
 FORMS += \
         mainwindow.ui

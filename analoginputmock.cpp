@@ -6,7 +6,7 @@ void analogInputMockSetNewValue(double angle, double offset, double amplitude){
     value = amplitude * sin(angle) + offset;
 }
 
-// override
+// override for mocks
 double getAnalogValue(){
     return value;
 }

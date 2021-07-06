@@ -4,6 +4,11 @@
 #include <QMainWindow>
 #include "ui_mainwindow.h"
 #include "boton.h"
+#include "wiringPi.h"
+#include "analoginput.h"
+
+#define MODO_POSICION  1
+#define MODO_VELOCIDAD 0
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +31,9 @@ public:
     double refVel = 0;
     double refPos = 0;
     double valorReferencia = 0;
+    double valorActual;
+    double valorVelocidad;
+    double valorPosicion;
 
     double P;
     double I;

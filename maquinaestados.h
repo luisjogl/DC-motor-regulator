@@ -7,6 +7,8 @@
 #include <QHistoryState>
 #include "pid.h"
 
+#define MODO_POSICION  1
+#define MODO_VELOCIDAD 0
 
 class MaquinaEstados : public QObject
 {
