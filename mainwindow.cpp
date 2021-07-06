@@ -9,12 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     MainWindow::setupRealTimePlot();
 
-    pthread_t analogInputThread;
-    pthread_create(&analogInputThread, NULL, readEntradasMaqueta, NULL);
+    ADC = new AnalogInput();
+    valorActual = 0;
 
 
-    pulsadorEmergencia = new Boton(0); //
-
+    //static QTime time(QTime::currentTime());
 
     QTimer *plotTimer = new QTimer(this);
     connect(plotTimer, SIGNAL(timeout()), this, SLOT(updatePlot()));
@@ -22,10 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->botonActualizaParams, SIGNAL(clicked()), this, SLOT(actualizaControllerParams()));
 
-    ui->doubleSpinBoxP->setValue(0.5);
-    ui->doubleSpinBoxI->setValue(0.1);
-    ui->doubleSpinBoxD->setValue(0.0);
-    ui->doubleSpinBoxT->setValue(0.5);
+    MainWindow::setControllerParams(0.5, 0.1, 0.0, 0.5);
 
     MainWindow::actualizaControllerParams();
 }
@@ -33,6 +29,13 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setControllerParams(double p, double i, double d, double t){
+    ui->doubleSpinBoxP->setValue(p);
+    ui->doubleSpinBoxI->setValue(i);
+    ui->doubleSpinBoxD->setValue(d);
+    ui->doubleSpinBoxT->setValue(t);
 }
 
 void MainWindow::setupRealTimePlot(){
@@ -43,7 +46,7 @@ void MainWindow::setupRealTimePlot(){
 
     ui->customPlot->xAxis->setLabel("Tiempo (s)");
     ui->customPlot->axisRect()->setupFullAxesBox();
-    ui->customPlot->yAxis->setLabel("Velocidad (RPM)");
+    //ui->customPlot->yAxis->setLabel("Velocidad (RPM)");
     ui->customPlot->legend->setVisible(true);
     ui->customPlot->legend->setFont(QFont("Helvetica",9));
     ui->customPlot->graph(0)->setName("Valor actual");
@@ -55,8 +58,8 @@ void MainWindow::updatePlot(){
     static QTime time(QTime::currentTime());
     double now = time.elapsed()/1000.0;
 
-    valorPosicion= getAnalogValue(MODO_POSICION);
-    valorVelocidad= getAnalogValue(MODO_VELOCIDAD);
+    valorPosicion= ADC->readAnalogInput(MODO_POSICION);
+    valorVelocidad= ADC->readAnalogInput(MODO_VELOCIDAD);
 
     static float minAxeY=0;
     static float maxAxeY=0;
@@ -94,4 +97,6 @@ void MainWindow::actualizaControllerParams(){
     I = ui->doubleSpinBoxI->value();
     D = ui->doubleSpinBoxD->value();
     T = ui->doubleSpinBoxT->value();
+    emit hayCambioParamsControllerUI();
 }
+

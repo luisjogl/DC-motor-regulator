@@ -5,6 +5,7 @@
 #include "ui_mainwindow.h"
 #include "boton.h"
 #include "wiringPi.h"
+//#include "analoginput_old.h"
 #include "analoginput.h"
 
 #define MODO_POSICION  1
@@ -23,11 +24,11 @@ public:
     ~MainWindow();
 
     void setupRealTimePlot();
-    void myInterrupt();
 
 //private:
     Ui::MainWindow *ui;
-    Boton *pulsadorEmergencia;
+
+    double now;
     double refVel = 0;
     double refPos = 0;
     double valorReferencia = 0;
@@ -40,8 +41,23 @@ public:
     double D;
     double T;
 
+    double rPosP;
+    double rPosI;
+    double rPosD;
+    double rPosT;
+
+    double rVelP;
+    double rVelI;
+    double rVelD;
+    double rVelT;
+
+    AnalogInput *ADC;
+
+    void setControllerParams(double p, double i, double d, double t);
+
 signals:
     void hayCambioReferencia();
+    void hayCambioParamsControllerUI();
 
 public slots:
     void updatePlot();

@@ -21,8 +21,8 @@ private:
     QStateMachine *machine;
     QState *enMarcha;
     QHistoryState *ultimoEstado;
-    QState *regulandoVelocidad;
-    QState *regulandoPosicion;
+    QState *controlVelocidad;
+    QState *controlPosicion;
     QState *paradaEmergencia;
 
     MainWindow *w;
@@ -32,26 +32,29 @@ private:
     PID *reguladorPosicion;
     PID *reguladorVelocidad;
 
+    int modoControl;
+
     QTimer *regulationTimer;
     QTimer *blinkingTimer;
 
     int estadoLED = 0;
 
-    double valorReferencia;
-    double accionControl;
-
 signals:
 
 public slots:
-    void enParadaEmergencia();
-    void enRegulandoVelocidad();
-    void enRegulandoPosicion();
-    void calculaAccionControl();
+    void realizaControl();
     //generaPWM()
     void cambiaRefPlot();
     void parpadeaLED();
+    void modificaParamsReguladores();
+
+private slots:
+    void saleControlVelocidad();
     void finalizaEmergencia();
     void entraEmergencia();
+    void entraControlVelocidad();
+    void entraControlPosicion();
+    void saleControlPosicion();
 };
 
 #endif // MAQUINAESTADOS_H
