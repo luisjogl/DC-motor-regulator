@@ -10,9 +10,6 @@ AnalogInput::AnalogInput(QObject *parent) : QObject(parent)
         exit(1);
     }
     spiSetup(SPICHANNEL);
-    //std::thread hiloLectorAnalog(&AnalogInput::readEntradasMaqueta, this);
-
-
 }
 
 void AnalogInput::spiSetup (int spiChannel)
@@ -42,32 +39,5 @@ int AnalogInput::readAnalogInput(int ADC_channel)
 
     return adc;
 }
-
-//void AnalogInput::readEntradasMaqueta(){
-//    //TODO: crear clase Recta con metodos bitsToGrados y bitsToRPMs. Atributos son valores max, min e intermedios de recta (private)
-
-//    //while (1){
-//        posicionMotorBits = readAnalogInput(POSITION_ADC_CHANNEL);
-//        velocidadMotorBits = readAnalogInput(VELOCITY_ADC_CHANNEL);
-//        std::cout << "Pos: " << posicionMotorBits << "\n";
-//        std::cout << "Vel: " << velocidadMotorBits << "\n";
-//    //}
-//}
-
-//int AnalogInput::getAnalogValue(int modo){
-//    if (modo == 0){
-//        std::cout << "Velocidad: " <<velocidadMotorBits << "\n";
-//        return velocidadMotorBits;   //por el momento
-//        //TODO: realizar conversion a velocidadMotorGrados segun recta y retornar esto
-//    }
-//    else if (modo == 1){
-//        return posicionMotorBits;   //por el momento
-//        //TODO: realizar conversion a posicionMotorGrados segun recta y retornar esto
-//    }
-//    else {
-//        std::cout << "Sólo hay entradas analógicas en los canales 0 y 1 del ADC \n";
-//    }
-
-//}
 
 

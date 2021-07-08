@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     pthread_t hiloBotones;
     pthread_create(&hiloBotones, nullptr, readBotones, nullptr);
 
-    MainWindow w; //(currVel,currPos)
+    MainWindow w;
     MaquinaEstados sm(&w, pulsadorEmergencia, pulsadorRearme);
 
     w.show();

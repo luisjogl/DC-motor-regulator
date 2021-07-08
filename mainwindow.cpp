@@ -12,8 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ADC = new AnalogInput();
     valorActual = 0;
 
-
-    //static QTime time(QTime::currentTime());
+    maqueta = new ConversorMaqueta(RESOLUCION_ADC);
 
     QTimer *plotTimer = new QTimer(this);
     connect(plotTimer, SIGNAL(timeout()), this, SLOT(updatePlot()));
@@ -46,7 +45,6 @@ void MainWindow::setupRealTimePlot(){
 
     ui->customPlot->xAxis->setLabel("Tiempo (s)");
     ui->customPlot->axisRect()->setupFullAxesBox();
-    //ui->customPlot->yAxis->setLabel("Velocidad (RPM)");
     ui->customPlot->legend->setVisible(true);
     ui->customPlot->legend->setFont(QFont("Helvetica",9));
     ui->customPlot->graph(0)->setName("Valor actual");
@@ -54,12 +52,14 @@ void MainWindow::setupRealTimePlot(){
 }
 
 void MainWindow::updatePlot(){
-    //std::cout << getAnalogValue();
     static QTime time(QTime::currentTime());
     double now = time.elapsed()/1000.0;
 
-    valorPosicion= ADC->readAnalogInput(MODO_POSICION);
-    valorVelocidad= ADC->readAnalogInput(MODO_VELOCIDAD);
+    int valorPosicionBits = ADC->readAnalogInput(MODO_POSICION);
+    valorPosicion = maqueta->BitsToDegrees(valorPosicionBits);
+
+    int valorVelocidadBits = ADC->readAnalogInput(MODO_VELOCIDAD);
+    valorVelocidad = maqueta->BitsToRPMs(valorVelocidadBits);
 
     static float minAxeY=0;
     static float maxAxeY=0;

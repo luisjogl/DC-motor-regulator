@@ -5,11 +5,13 @@
 #include "ui_mainwindow.h"
 #include "boton.h"
 #include "wiringPi.h"
-//#include "analoginput_old.h"
 #include "analoginput.h"
+#include "conversormaqueta.h"
 
 #define MODO_POSICION  1
 #define MODO_VELOCIDAD 0
+
+#define RESOLUCION_ADC  1024
 
 namespace Ui {
 class MainWindow;
@@ -52,6 +54,7 @@ public:
     double rVelT;
 
     AnalogInput *ADC;
+    ConversorMaqueta *maqueta;
 
     void setControllerParams(double p, double i, double d, double t);
 

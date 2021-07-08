@@ -67,7 +67,6 @@ void MaquinaEstados::entraControlPosicion(){
     modoControl = ESTADO_POSICION;
     w->ui->labelEstado->setText("REGULANDO POSICIÓN");
     w->valorReferencia = w->refPos;
-    w->valorActual = w->valorPosicion;
     w->ui->customPlot->yAxis->setLabel("Posición (º)");
     w->setControllerParams(w->rPosP,w->rPosI,w->rPosD,w->rPosT);
 }
@@ -96,26 +95,18 @@ void MaquinaEstados::saleControlPosicion(){
 
 void MaquinaEstados::realizaControl(){
     if (modoControl == ESTADO_VELOCIDAD){
-        double valorActual = w->ADC->readAnalogInput(ESTADO_VELOCIDAD);
-        w->valorActual = valorActual;
-        double valorReferencia = w->valorReferencia;
-        double accionControl = reguladorVelocidad->calcular(valorReferencia, valorActual);
-        std::cout << "Accion Control VEL: " << accionControl << "\n";
+        w->valorActual = w->valorVelocidad;
+        double accionControl = reguladorVelocidad->calcular(w->valorReferencia, w->valorActual);
         // a partir de esta accion de control genera PWM
     }
     else if (modoControl == ESTADO_POSICION){
-        double valorActual = w->ADC->readAnalogInput(ESTADO_POSICION);
-        w->valorActual = valorActual;
-        double valorReferencia = w->valorReferencia;
-        double accionControl = reguladorVelocidad->calcular(valorReferencia, valorActual);
-        std::cout << "Accion Control POS: " << accionControl << "\n";
+        w->valorActual = w->valorPosicion;
+        double accionControl = reguladorPosicion->calcular(w->valorReferencia, w->valorActual);
         // a partir de esta accion de control genera PWM
     }
     else {
-        double valorActual = w->ADC->readAnalogInput(ESTADO_VELOCIDAD);
-        w->valorActual = valorActual;
-        double valorReferencia = w->valorReferencia;
-        double accionControl = reguladorVelocidad->calcular(valorReferencia, valorActual);
+        w->valorActual = w->valorVelocidad;
+        double accionControl = reguladorVelocidad->calcular(0, w->valorActual);
     }
 }
 

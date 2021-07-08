@@ -33,7 +33,8 @@ SOURCES += \
     #readBotones.cpp \
     boton.cpp \
     #analoginput_old.cpp \
-    analoginput.cpp
+    analoginput.cpp \
+    conversormaqueta.cpp
     #enciendeled.cpp
 
 HEADERS += \
@@ -44,7 +45,8 @@ HEADERS += \
     #analoginputmock.h \
     boton.h \
     #analoginput_old.h \
-    analoginput.h
+    analoginput.h \
+    conversormaqueta.h
 
 FORMS += \
         mainwindow.ui

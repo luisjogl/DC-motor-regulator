@@ -478,9 +478,9 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>870</x>
       <y>510</y>
-      <width>322</width>
+      <width>331</width>
       <height>51</height>
      </rect>
     </property>
@@ -498,7 +498,20 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="spinBoxRefVel"/>
+      <widget class="QDoubleSpinBox" name="spinBoxRefVel">
+       <property name="minimum">
+        <double>-46.500000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>47.500000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="value">
+        <double>20.000000000000000</double>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -1361,9 +1374,9 @@
    <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>870</x>
       <y>580</y>
-      <width>322</width>
+      <width>336</width>
       <height>51</height>
      </rect>
     </property>
@@ -1381,7 +1394,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="spinBoxRefPos"/>
+      <widget class="QDoubleSpinBox" name="spinBoxRefPos">
+       <property name="maximum">
+        <double>359.000000000000000</double>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
