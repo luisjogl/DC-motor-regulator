@@ -27,16 +27,30 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     qcustomplot.cpp \
-    analoginputmock.cpp \
+    #analoginputmock.cpp \
     maquinaestados.cpp \
-    pid.cpp
+    pid.cpp \
+    #readBotones.cpp \
+    boton.cpp \
+    #analoginput_old.cpp \
+    analoginput.cpp \
+    conversormaqueta.cpp \
+    pwm.cpp
+    #enciendeled.cpp
 
 HEADERS += \
         mainwindow.h \
     qcustomplot.h \
     maquinaestados.h \
     pid.h \
-    analoginputmock.h
+    #analoginputmock.h \
+    boton.h \
+    #analoginput_old.h \
+    analoginput.h \
+    conversormaqueta.h \
+    pwm.h
 
 FORMS += \
         mainwindow.ui
+
+LIBS += -L/usr/local/lib -lwiringPi

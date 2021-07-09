@@ -1,7 +1,7 @@
 #include "pid.h"
 #include <iostream>
 
-PID::PID(double kp = 1, double ki = 0, double kd = 0, double dt = 1) {
+PID::PID(double kp, double ki, double kd, double dt) {
     _KP = kp;
     _KI = ki;
     _KD = kd;

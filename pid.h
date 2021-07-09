@@ -5,7 +5,7 @@
 class PID
 {
 public:
-    PID(double, double, double, double);
+    PID(double kp, double ki, double kd, double dt);
     ~PID(){}
 
     void setKP(double kp) {_KP = kp;}

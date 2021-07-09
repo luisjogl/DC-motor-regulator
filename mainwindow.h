@@ -3,6 +3,15 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "boton.h"
+#include "wiringPi.h"
+#include "analoginput.h"
+#include "conversormaqueta.h"
+
+#define MODO_POSICION  1
+#define MODO_VELOCIDAD 0
+
+#define RESOLUCION_ADC  1024
 
 namespace Ui {
 class MainWindow;
@@ -20,17 +29,40 @@ public:
 
 //private:
     Ui::MainWindow *ui;
+
+    double now;
     double refVel = 0;
     double refPos = 0;
     double valorReferencia = 0;
+    double valorActual;
+    double valorVelocidad;
+    double valorPosicion;
+    int valorPosicionBits;
+    int valorVelocidadBits;
 
     double P;
     double I;
     double D;
     double T;
 
+    double rPosP;
+    double rPosI;
+    double rPosD;
+    double rPosT;
+
+    double rVelP;
+    double rVelI;
+    double rVelD;
+    double rVelT;
+
+    AnalogInput *ADC;
+    ConversorMaqueta *maqueta;
+
+    void setControllerParams(double p, double i, double d, double t);
+
 signals:
     void hayCambioReferencia();
+    void hayCambioParamsControllerUI();
 
 public slots:
     void updatePlot();
