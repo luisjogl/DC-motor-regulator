@@ -1504,7 +1504,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="doubleSpinBoxP"/>
+         <widget class="QDoubleSpinBox" name="doubleSpinBoxP">
+          <property name="value">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -1518,7 +1522,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="doubleSpinBoxI"/>
+         <widget class="QDoubleSpinBox" name="doubleSpinBoxI">
+          <property name="value">
+           <double>0.200000000000000</double>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -1532,7 +1540,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="doubleSpinBoxD"/>
+         <widget class="QDoubleSpinBox" name="doubleSpinBoxD">
+          <property name="value">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -1546,7 +1558,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="doubleSpinBoxT"/>
+         <widget class="QDoubleSpinBox" name="doubleSpinBoxT">
+          <property name="value">
+           <double>0.500000000000000</double>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
