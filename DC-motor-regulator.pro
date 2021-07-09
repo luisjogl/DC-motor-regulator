@@ -34,7 +34,8 @@ SOURCES += \
     boton.cpp \
     #analoginput_old.cpp \
     analoginput.cpp \
-    conversormaqueta.cpp
+    conversormaqueta.cpp \
+    pwm.cpp
     #enciendeled.cpp
 
 HEADERS += \
@@ -46,7 +47,8 @@ HEADERS += \
     boton.h \
     #analoginput_old.h \
     analoginput.h \
-    conversormaqueta.h
+    conversormaqueta.h \
+    pwm.h
 
 FORMS += \
         mainwindow.ui

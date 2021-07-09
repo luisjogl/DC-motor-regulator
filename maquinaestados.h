@@ -6,6 +6,7 @@
 #include "mainwindow.h"
 #include <QHistoryState>
 #include "pid.h"
+#include "pwm.h"
 
 #define MODO_POSICION  1
 #define MODO_VELOCIDAD 0
@@ -38,6 +39,8 @@ private:
     QTimer *blinkingTimer;
 
     int estadoLED = 0;
+
+    PWM *pwm;
 
 signals:
 

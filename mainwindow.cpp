@@ -55,10 +55,10 @@ void MainWindow::updatePlot(){
     static QTime time(QTime::currentTime());
     double now = time.elapsed()/1000.0;
 
-    int valorPosicionBits = ADC->readAnalogInput(MODO_POSICION);
+    valorPosicionBits = ADC->readAnalogInput(MODO_POSICION);
     valorPosicion = maqueta->BitsToDegrees(valorPosicionBits);
 
-    int valorVelocidadBits = ADC->readAnalogInput(MODO_VELOCIDAD);
+    valorVelocidadBits = ADC->readAnalogInput(MODO_VELOCIDAD);
     valorVelocidad = maqueta->BitsToRPMs(valorVelocidadBits);
 
     static float minAxeY=0;

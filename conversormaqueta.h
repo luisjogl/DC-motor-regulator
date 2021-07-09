@@ -15,8 +15,11 @@ public:
     explicit ConversorMaqueta(int resolucion, QObject *parent = nullptr);
 
     double BitsToDegrees(int bits);
-
     double BitsToRPMs(int bits);
+
+    int DegreesToBits(double degrees);
+
+    int RPMsToBits(double rpms);
 private:
     int maxBits;
 

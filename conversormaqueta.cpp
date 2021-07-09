@@ -53,3 +53,34 @@ double ConversorMaqueta::BitsToRPMs(int bits) {
 
     return rpmsVel;
 }
+
+int ConversorMaqueta::DegreesToBits(double degrees) {
+    if (degrees >= MAX_DEGREES || degrees <= 0){
+        return maxBits/2;
+    }
+    else if (degrees > 0 && degrees < MAX_DEGREES/2){
+        return maxBits/2 + degrees/pendientePos;
+    }
+    else if (degrees < MAX_DEGREES && degrees >= MAX_DEGREES/2){
+        return degrees/pendientePos - maxBits/2;
+    }
+}
+
+int ConversorMaqueta::RPMsToBits(double rpms) {
+    if (rpms < -VEL_MAX_CCW){
+        return 338;
+    }
+    else if (rpms > VEL_MAX_CW){
+        return 727;
+    }
+    else if (rpms < VEL_MAX_CW && rpms > 0){
+        return rpms/pendienteVelCW + 532;
+    }
+    else if (rpms > -VEL_MAX_CCW && rpms < 0){
+        return rpms/pendienteVelCCW + 338;
+    }
+    else{
+        return 525;
+    }
+
+}

@@ -37,6 +37,8 @@ public:
     double valorActual;
     double valorVelocidad;
     double valorPosicion;
+    int valorPosicionBits;
+    int valorVelocidadBits;
 
     double P;
     double I;

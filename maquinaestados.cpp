@@ -50,6 +50,7 @@ MaquinaEstados::MaquinaEstados(MainWindow *gui, Boton *pulsEmer, Boton *pulsRear
 
     wiringPiSetup() ;
     pinMode (LED_PIN, OUTPUT) ;
+    pwm = new PWM();
 
     machine->setInitialState(enMarcha);
     enMarcha->setInitialState(ultimoEstado);
@@ -97,16 +98,21 @@ void MaquinaEstados::realizaControl(){
     if (modoControl == ESTADO_VELOCIDAD){
         w->valorActual = w->valorVelocidad;
         double accionControl = reguladorVelocidad->calcular(w->valorReferencia, w->valorActual);
-        // a partir de esta accion de control genera PWM
+        int valorPWM = pwm->calculaValorPWM(accionControl);
+        pwm->generaPWM(valorPWM);
     }
     else if (modoControl == ESTADO_POSICION){
         w->valorActual = w->valorPosicion;
-        double accionControl = reguladorPosicion->calcular(w->valorReferencia, w->valorActual);
-        // a partir de esta accion de control genera PWM
-    }
+        int refPosBits = w->maqueta->DegreesToBits(w->valorReferencia);
+        double accionControl = reguladorPosicion->calcular(refPosBits, w->valorPosicionBits);
+        int valorPWM = pwm->calculaValorPWM(accionControl);
+        pwm->generaPWM(valorPWM);
+   }
     else {
         w->valorActual = w->valorVelocidad;
         double accionControl = reguladorVelocidad->calcular(0, w->valorActual);
+        int valorPWM = pwm->calculaValorPWM(accionControl);
+        pwm->generaPWM(valorPWM);
     }
 }
 
